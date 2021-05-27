@@ -1,0 +1,10 @@
+sample	type	fq1	fq2
+condition1	fg	/data/file1.fastq.gz
+condition1	bg	/data/file2.fastq.gz
+condition2	fg      /data/file3_R1.fastq.gz	/data/file3_R2.fastq.gz
+condition2      bg	/data/file4_R1.fastq.gz	/data/file4_R2.fastq.gz
+condition3	fg	/data/file5.fastq.gz
+condition3	fg	/data/file6.fastq.gz
+condition3	fg	/data/file7.fastq.gz
+condition3	bg	/data/file8.fastq.gz
+condition3	bg	/data/file9.fastq.gz
