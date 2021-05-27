@@ -9,7 +9,7 @@ All you need to do is to download **crema_uploader.py** script and start using i
 
 ## Purpose
 
-This script is aimed to users who has their data files stored on remote machines (usually linux) which can use this script to upload their data without use of an internet browser. So you do not need to copy files to your local machine for uploading to the ISMARA server.
+This script is aimed to users who has their data files stored on remote machines (usually linux) which can use this script to upload their data without use of an internet browser. So you do not need to copy files to your local machine for uploading to the CREMA server.
 
 This is beta version to see if there are people interested in such application, We hope to get user feedback to properly shape the further development.
 
@@ -19,8 +19,8 @@ This is beta version to see if there are people interested in such application, 
 
 ```shell
 python crema_uploader.py [-h] [-e EMAIL] [-p PROJECT]
-                         [-t {microarray,rnaseq,chipseq,cage}]
-                         [-o {hg18,mm9,hg19,mm10}]
+                         [-t {chip-seq,atac-seq}]
+                         [-o {hg19,mm10,rn6}]
                          --file-list TSV_FILE
 ```
 
@@ -30,14 +30,15 @@ python crema_uploader.py [-h] [-e EMAIL] [-p PROJECT]
 * -e EMAIL |: email address
 * -p PROJECT : project name
 * -t : data type {chip-seq, atac-seq}, default: chip-seq
+* -o : organism ID, use hg19 for human, mm10 for mouse and rn6 for rat
 * --file-list : TSV file list of files, ascii text, one line per file path
 
 #### File format support
 The following file formats are supported:
-* **rnaseq/chipseq** : .fastq[.gz] 
+* **ATAC-Seq/ChIP-Seq** : .fastq[.gz] 
 
 #### TSV file format
-The .tsv file contains paths to fastq files for uploading and annotation of these files i.e. to chich condition and which type each file belongs. All values in the file are separated with tabs. Header line is required.
+The .tsv file contains paths to fastq files for uploading and annotation of these files i.e. to which condition and which type each file belongs to. All values in the tsv file are separated with tabs. Header line is required.
 Here is an example:
 ```
 sample	type	fq1	fq2
@@ -57,10 +58,10 @@ If you have data with multiple replicates per condition you can specify multiple
 
 ### Example
 
-2. We run the script in background:
+We run the script in background:
 ```shell
 python crema_uploader.py -e user@example.com -p "my cool project" -data-type chip-seq -o hg19 \
     --file-list file_list.txt 1>crema_uploader.out 2>crema_uploader.err &
 ```
 
-3. In the file crema_uploader.out the last lines contain a link to status page of your submission. If you submitted your email address then you will get a notification once your job is finished.
+In the file crema_uploader.out the last lines contain a link to status page of your submission. If you submitted your email address then you will get a notification once your job is finished.
