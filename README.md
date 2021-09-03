@@ -35,7 +35,7 @@ python crema_uploader.py [-h] [-e EMAIL] [-p PROJECT]
 
 #### File format support
 The following file formats are supported:
-* **ATAC-Seq/ChIP-Seq** : .fastq[.gz] 
+* **ATAC-Seq/ChIP-Seq** : .fastq[.gz]
 
 #### TSV file format
 The .tsv file contains paths to fastq files for uploading and annotation of these files i.e. to which condition and which type each file belongs to. All values in the tsv file are separated with tabs. Header line is required.
@@ -53,8 +53,8 @@ condition3	bg	/data/file8.fastq.gz
 condition3	bg	/data/file9.fastq.gz
 ```
 
-First column contains condition name for every fastq file (fastq pair). Second column contains type of a file either **fg** for foreground samples or **bg** for background samples. Third column contains path to fastq file or path fastq file for firs end reads in a pair. Fourth column contains path a second end read file iof data is paired end.
-If you have data with multiple replicates per condition you can specify multiple fastq files percondition like in the example ebove for *condition3*. Your dataset could be a mixture of single-end and paired end fastq files. 
+First column contains condition name for every fastq file (fastq pair). Second column contains type of a file either **fg** for foreground samples or **bg** for background samples. Third column contains path to fastq file or path fastq file for firs end reads in a pair. Fourth column contains path to the second end read file if data is paired end.
+If you have data with multiple replicates per condition you can specify multiple fastq files per condition like in the example above for *condition3*. Your dataset could be a mixture of single-end and paired end fastq files. 
 
 ### Example
 
