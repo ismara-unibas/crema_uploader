@@ -19,7 +19,7 @@ This is beta version to see if there are people interested in such application, 
 
 ```shell
 python crema_uploader.py [-h] [-e EMAIL] [-p PROJECT]
-                         [-t {chip-seq,atac-seq}]
+                         [--data-type {chip-seq,atac-seq}]
                          [-o {hg19,mm10,rn6}]
                          --file-list TSV_FILE
 ```
@@ -29,7 +29,7 @@ python crema_uploader.py [-h] [-e EMAIL] [-p PROJECT]
 * -h, --help :  show this help message and exit
 * -e EMAIL |: email address
 * -p PROJECT : project name
-* -t : data type {chip-seq, atac-seq}, default: chip-seq
+* --data-type : data type {chip-seq, atac-seq}, default: chip-seq
 * -o : organism ID, use hg19 for human, mm10 for mouse and rn6 for rat
 * --file-list : TSV file list of files, ascii text, one line per file path
 
@@ -54,13 +54,13 @@ condition3	bg	/data/file9.fastq.gz
 ```
 
 First column contains condition name for every fastq file (fastq pair). Second column contains type of a file either **fg** for foreground samples or **bg** for background samples. Third column contains path to fastq file or path fastq file for firs end reads in a pair. Fourth column contains path to the second end read file if data is paired end.
-If you have data with multiple replicates per condition you can specify multiple fastq files per condition like in the example above for *condition3*. Your dataset could be a mixture of single-end and paired end fastq files. 
+If you have data with multiple replicates per condition you can specify multiple fastq files per condition like in the example above for *condition3*. Your dataset could be a mixture of single-end and paired end fastq files.
 
 ### Example
 
 We run the script in background:
 ```shell
-python crema_uploader.py -e user@example.com -p "my cool project" -data-type chip-seq -o hg19 \
+python crema_uploader.py -e user@example.com -p "my cool project" --data-type chip-seq -o hg19 \
     --file-list file_list.txt 1>crema_uploader.out 2>crema_uploader.err &
 ```
 

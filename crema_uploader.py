@@ -24,7 +24,7 @@ def main():
                         help='project name',
                         dest='project',
                         default='')
-    parser.add_argument('--data-type',
+    parser.add_argument('--data-type', '-t',
                         help='data type',
                         dest='data_type',
                         choices=["chip-seq", "atac-seq"],
@@ -39,7 +39,7 @@ def main():
                         help="TSV_FILE containing information on sample, sample type and file path",
                         dest="file_list",
                         required=True)
-    
+
     args = parser.parse_args()
 
     upload_session = requests.Session()
@@ -86,7 +86,7 @@ def main():
                     filename = os.path.split(filepath)[1]
                     data[f2_idx] = filename
             new_content.append("\t".join(data))
-    
+
     #  make temp dir to keep modified samples.tsv for sending to server
     temp_dir = tempfile.mkdtemp(prefix=".crema_", dir="./")
     with open("%s/samples.tsv" % temp_dir, "wt") as fout:
@@ -124,7 +124,7 @@ def main():
     # remove temp dir after upload
     if os.path.exists(temp_dir):
         shutil.rmtree(temp_dir)
-    
+
     # init job run after upload
     email = args.email
     project = args.project
