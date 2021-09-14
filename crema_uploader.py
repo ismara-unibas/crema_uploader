@@ -66,6 +66,8 @@ def main():
     files = set()
     new_content = []
     with open(args.file_list) as fin:
+        if line.strip() == '':
+            continue
         # read header
         content = [line.strip().split("\t") for line in fin]
         f1_idx = content[0].index("fq1")
