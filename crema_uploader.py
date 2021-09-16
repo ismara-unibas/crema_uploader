@@ -66,10 +66,8 @@ def main():
     files = set()
     new_content = []
     with open(args.file_list) as fin:
-        if line.strip() == '':
-            continue
         # read header
-        content = [line.strip().split("\t") for line in fin]
+        content = [line.strip().split("\t") for line in fin if line.strip() != '']
         f1_idx = content[0].index("fq1")
         if "fq2" in content[0]:
             f2_idx = content[0].index("fq2")
@@ -77,6 +75,8 @@ def main():
             f2_idx = None
         new_content.append("\t".join(content[0]))
         for data in content[1:]:
+            if len(data) < (f1_idx + 1):
+                raise BaseException("\n->\t%s\nThis line does not have enough values. Please check the file formating." % "\t".join(data))
             filepath = data[f1_idx].strip()
             files.add(filepath)
             filename = os.path.split(filepath)[1]
