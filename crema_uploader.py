@@ -4,6 +4,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import requests
 import time
 import shutil
@@ -78,12 +79,18 @@ def main():
             if len(data) < (f1_idx + 1):
                 raise BaseException("\n->\t%s\nThis line does not have enough values. Please check the file formating." % "\t".join(data))
             filepath = data[f1_idx].strip()
-            files.add(filepath)
-            filename = os.path.split(filepath)[1]
-            data[f1_idx] = filename
+            if is_link(filepath):
+                data[f1_idx] = filepath
+            else:
+                files.add(filepath)
+                filename = os.path.split(filepath)[1]
+                data[f1_idx] = filename
+                
             if f2_idx is not None and len(data) > f2_idx:
                 filepath = data[f2_idx].strip()
-                if filepath != "":
+                if is_link(filepath):
+                    data[f2_idx] = filepath
+                elif filepath != "":
                     files.add(filepath)
                     filename = os.path.split(filepath)[1]
                     data[f2_idx] = filename
@@ -157,6 +164,14 @@ def read_in_chunks(file_object, chunk_size=50000000):
             break
         yield data
 
+
+def is_link(filepath):
+    if re.match(r'^(http://|https://|ftp://)', filepath.strip()):
+        return(True)
+    if re.match(r'^SRR\d+$', filepath.strip()):
+        return(True)
+    return(False)
+        
 
 if __name__ == "__main__":
     main()

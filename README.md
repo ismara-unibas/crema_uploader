@@ -1,6 +1,6 @@
 # Upload client for the CREMA web-service (https://crema.unibas.ch)
 
-This is a python script which uploads your files to the CREMA
+This is a python script which uploads your files, links, SRR ids to the CREMA
 web-server and starts the CREMA analysis.
 
 All you need to do is to download **crema_uploader.py** script and start using it.
@@ -9,9 +9,9 @@ All you need to do is to download **crema_uploader.py** script and start using i
 
 ## Purpose
 
-This script is aimed to users who has their data files stored on remote machines (usually linux) which can use this script to upload their data without use of an internet browser. So you do not need to copy files to your local machine for uploading to the CREMA server.
+This script is aimed to users who has their data files stored on remote machines (usually linux) which can use this script to upload their data without use of an internet browser. So you do not need to copy files to your local machine for uploading to the CREMA server. You can also insert links to the files (http or ftp) and/or SRR id (NCBI’s SRA database). In the later case the files from the external sources will be automatically downloaded to the CREMA server.
 
-This is beta version to see if there are people interested in such application, We hope to get user feedback to properly shape the further development.
+We hope to get user feedback to properly shape the further development.
 
 **All feedback is welcome!**
 
@@ -38,8 +38,8 @@ The following file formats are supported:
 * **ATAC-Seq/ChIP-Seq** : .fastq[.gz]
 
 #### TSV file format
-The .tsv file contains paths to fastq files for uploading and annotation of these files i.e. to which condition and which type each file belongs to. All values in the tsv file are separated with tabs. Header line is required.
-Here is an example:
+The .tsv file contains paths to fastq files and/or links, SRR ids for uploading and annotation of these files i.e. to which condition and which type each file belongs to. All values in the tsv file are separated with tabs. Header line is required.
+Here is an example of .TSV file with paths to local files:
 ```
 sample	type	fq1	fq2
 condition1	fg	/data/file1.fastq.gz
@@ -56,6 +56,21 @@ condition3	bg	/data/file9.fastq.gz
 First column contains condition name for every fastq file (fastq pair). Second column contains type of a file either **fg** for foreground samples or **bg** for background samples. Third column contains path to fastq file or path fastq file for firs end reads in a pair. Fourth column contains path to the second end read file if data is paired end.
 If you have data with multiple replicates per condition you can specify multiple fastq files per condition like in the example above for *condition3*. Your dataset could be a mixture of single-end and paired end fastq files.
 
+#### Use of links to files and SRR ids
+
+In the TSV file you can mix local files, links and SRR ids.
+
+```
+sample	type	fq1	fq2
+condition1	fg	/data/file1.fastq.gz
+condition1	bg	/data/file2.fastq.gz
+condition2	fg      SRR12345
+condition2	fg      SRR12346
+condition2      bg	SRR12347
+condition3	fg	https://example.com/data/file1_1.fastq.gz	https://example.com/data/file1_2.fastq.gz
+condition3	bg	https://example.com/data/file2_1.fastq.gz	https://example.com/data/file2_2.fastq.gz
+```
+
 ### Example
 
 We run the script in background:
@@ -64,4 +79,4 @@ python crema_uploader.py -e user@example.com -p "my cool project" --data-type ch
     --file-list file_list.txt 1>crema_uploader.out 2>crema_uploader.err &
 ```
 
-In the file crema_uploader.out the last lines contain a link to status page of your submission. If you submitted your email address then you will get a notification once your job is finished.
+In the file crema_uploader.out the last lines contain a link to status page of your submission. If you submitted your email address then you will get a notification once your job is finished. The "crema_uploader.err" file contains error messages.
