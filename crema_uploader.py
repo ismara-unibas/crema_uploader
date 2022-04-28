@@ -125,7 +125,7 @@ def main():
                     except:
                         error = sys.exc_info()[0]
                         logging.warning("Error: %s!!!\nRetrying to re-upload data. Retry %d", str(sys.exc_info()), i+1)
-                        time.sleep(60)
+                        time.sleep(i * 60)
                 if error != '':
                     logging.warning("Could not upload the data! Please report this id to CREMA administrators: %s!", save_dir)
         logging.warning("Finished uploading file %s", f)
